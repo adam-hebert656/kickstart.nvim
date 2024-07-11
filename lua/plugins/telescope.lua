@@ -77,14 +77,39 @@ return {
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-    vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 
     vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind Existing [B]uffers' })
     vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+    vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = '[F]ind [G]it Files' })
     vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+
+    vim.keymap.set('n', '<leader>gh', builtin.git_commits, { desc = '[G]it Commit [H]istory'})
+    vim.keymap.set('n', '<leader>gb', builtin.git_bcommits, { desc = '[G]it Buffer Commit [H]istory'})
+
+
+    -- Grep
+    function live_grep_git_dir()
+      local git_dir = vim.fn.system(string.format("git -C %s rev-parse --show-toplevel", vim.fn.expand("%:p:h")))
+      git_dir = string.gsub(git_dir, "\n", "") -- remove newline character from git_dir
+      local opts = {
+        cwd = git_dir,
+      }
+      require('telescope.builtin').live_grep(opts)
+    end
+
+    function grep_string_git_dir()
+      local git_dir = vim.fn.system(string.format("git -C %s rev-parse --show-toplevel", vim.fn.expand("%:p:h")))
+      git_dir = string.gsub(git_dir, "\n", "") -- remove newline character from git_dir
+      local opts = {
+        cwd = git_dir,
+      }
+      require('telescope.builtin').grep_string(opts)
+    end
+
+    vim.keymap.set('n', '<leader>sg', '<cmd>lua live_grep_git_dir()<cr>', { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader>sw', '<cmd>lua grep_string_git_dir()<cr>', { desc = '[S]earch current [W]ord' })
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()

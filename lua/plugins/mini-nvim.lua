@@ -30,8 +30,6 @@ return { -- Collection of various small independent plugins/modules
         markdown = true,
       }
     )
-    require('mini.sessions').setup()
-
     -- mini.files Configuration
     require('mini.files').setup({
       windows = {
@@ -55,7 +53,7 @@ return { -- Collection of various small independent plugins/modules
     vim.api.nvim_create_autocmd('User', {
       pattern = 'MiniFilesBufferCreate',
       callback = function(args)
-        vim.keymap.set('n', 'g~', files_set_cwd, { buffer = args.data.buf_id, desc = "Set CWD" })
+        vim.keymap.set('n', 'gs', files_set_cwd, { buffer = args.data.buf_id, desc = "Set CWD" })
       end,
     })
     -- Toggle showing dotfiles
@@ -103,14 +101,17 @@ return { -- Collection of various small independent plugins/modules
                                        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   
       ]],
       items = {
-        starter.sections.recent_files(5, false, false),
-        new_section("Find file",       "Telescope find_files",                "Telescope"),
-        new_section("Recent files",    "Telescope oldfiles",                  "Telescope"),
-        new_section("Find text",       "Telescope live_grep",                 "Telescope"),
-        new_section("Config",          "Oil --float ~/.config/nvim/",         "Config"),
-        new_section("Lazy",            "Lazy",                                "Config"),
-        new_section("New file",        "ene | startinsert",                   "Built-in"),
-        new_section("Quit",            "qa",                                  "Built-in"),
+        new_section("Find file",       "Telescope find_files",                                  "Telescope"),
+        new_section("Recent files",    "Telescope oldfiles",                                    "Telescope"),
+        new_section("Find text",       "Telescope live_grep",                                   "Telescope"),
+        new_section("Projects",        "lua require'telescope'.extensions.projects.projects{}", "Telescope"),
+        new_section("Config",          "lua MiniFiles.open('~/.config/nvim/')",                 "Config"),
+        new_section("Lazy",            "Lazy",                                                  "Config"),
+        new_section("New file",        "ene | startinsert",                                     "Built-in"),
+        new_section("Quit",            "qa",                                                    "Built-in"),
+
+        new_section("Restore Last Session", "lua require('persistence').load({ last = true })", "Session"),
+        new_section("Select Session", "lua require('persistence').select()",                    "Session")
       },
       content_hooks = {
         starter.gen_hook.adding_bullet(),
@@ -119,7 +120,11 @@ return { -- Collection of various small independent plugins/modules
     })
 
     require('mini.cursorword').setup()
-    require('mini.indentscope').setup()
+
+    -- mini.indentscope Configuration
+    require('mini.indentscope').setup({
+      symbol = "│"
+    })
 
     -- ... and there is more!
     --  Check out: https://github.com/echasnovski/mini.nvim
