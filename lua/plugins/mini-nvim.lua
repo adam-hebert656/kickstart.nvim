@@ -7,7 +7,7 @@ return { -- Collection of various small independent plugins/modules
     --  - va)  - [V]isually select [A]round [)]paren
     --  - yinq - [Y]ank [I]nside [N]ext [']quote
     --  - ci'  - [C]hange [I]nside [']quote
-    require('mini.ai').setup { n_lines = 500 }
+    require('mini.ai').setup({ n_lines = 500 })
 
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     --
@@ -32,6 +32,54 @@ return { -- Collection of various small independent plugins/modules
     )
     require('mini.sessions').setup()
 
+    -- mini.files Configuration
+    require('mini.files').setup({
+      windows = {
+        preview = true,
+        width_focus = 30,
+        width_preview = 50,
+      },
+      options = {
+        use_as_default_explorer = true,
+        permanent_delete = false
+      },
+    })
+    -- Set Current Working Directory
+    local files_set_cwd = function(path)
+      -- Works only if cursor is on the valid file system entry
+      local cur_entry_path = MiniFiles.get_fs_entry().path
+      local cur_directory = vim.fs.dirname(cur_entry_path)
+      vim.fn.chdir(cur_directory)
+    end
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'MiniFilesBufferCreate',
+      callback = function(args)
+        vim.keymap.set('n', 'g~', files_set_cwd, { buffer = args.data.buf_id, desc = "Set CWD" })
+      end,
+    })
+    -- Toggle showing dotfiles
+    local show_dotfiles = true
+    local filter_show = function(fs_entry) return true end
+    local filter_hide = function(fs_entry)
+      return not vim.startswith(fs_entry.name, '.')
+    end
+    local toggle_dotfiles = function()
+      show_dotfiles = not show_dotfiles
+      local new_filter = show_dotfiles and filter_show or filter_hide
+      MiniFiles.refresh({ content = { filter = new_filter } })
+    end
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'MiniFilesBufferCreate',
+      callback = function(args)
+        local buf_id = args.data.buf_id
+        -- Tweak left-hand side of mapping to your liking
+        vim.keymap.set('n', 'g.', toggle_dotfiles, { buffer = buf_id, desc = "Toggle Showing Dotfiles" })
+      end,
+    })
+
+
     -- mini.starter Configuration
     local starter = require('mini.starter')
 
@@ -55,7 +103,7 @@ return { -- Collection of various small independent plugins/modules
                                        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   
       ]],
       items = {
-        starter.sections.recent_files(5, true, true),
+        starter.sections.recent_files(5, false, false),
         new_section("Find file",       "Telescope find_files",                "Telescope"),
         new_section("Recent files",    "Telescope oldfiles",                  "Telescope"),
         new_section("Find text",       "Telescope live_grep",                 "Telescope"),
@@ -69,6 +117,9 @@ return { -- Collection of various small independent plugins/modules
         starter.gen_hook.aligning('center', 'center'),
       },
     })
+
+    require('mini.cursorword').setup()
+    require('mini.indentscope').setup()
 
     -- ... and there is more!
     --  Check out: https://github.com/echasnovski/mini.nvim

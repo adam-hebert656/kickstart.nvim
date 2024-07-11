@@ -34,18 +34,24 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Oil
-vim.keymap.set('n', '-', function()
-  require('oil').open_float()
+-- vim.keymap.set('n', '-', function()
+--   require('oil').open_float()
+--
+--   -- Wait until oil has opened, for a maximum of 1 second.
+--   vim.wait(1000, function()
+--     return require('oil').get_cursor_entry() ~= nil
+--   end)
+--   if require('oil').get_cursor_entry() then
+--     require('oil').open_preview()
+--   end
+-- end)
 
-  -- Wait until oil has opened, for a maximum of 1 second.
-  vim.wait(1000, function()
-    return require('oil').get_cursor_entry() ~= nil
-  end)
-  if require('oil').get_cursor_entry() then
-    require('oil').open_preview()
-  end
-end)
+-- mini.files
+local minifiles_toggle = function(...)
+  if not MiniFiles.close() then MiniFiles.open(...) end
+end
 
+vim.keymap.set('n', '-', minifiles_toggle, { desc = 'Open MiniFiles' })
 -- better up/down
 vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 vim.keymap.set({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })

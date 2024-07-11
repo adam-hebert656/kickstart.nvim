@@ -23,8 +23,8 @@ return {
     --     PrevParagraph = { text = "{", prio = 8 },
     --     NextParagraph = { text = "}", prio = 8 },
     -- },
-    -- disabled_fts = {
-    --     "startify",
-    -- },
+        disabled_fts = {
+            "ministarter",
+        },
     },
 }
