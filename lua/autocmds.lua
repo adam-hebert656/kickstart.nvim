@@ -45,6 +45,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup 'close_with_q',
   pattern = {
+    'oil',
     'PlenaryTestPopup',
     'help',
     'lspinfo',
