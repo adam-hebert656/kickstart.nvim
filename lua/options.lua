@@ -75,3 +75,6 @@ vim.diagnostic.config({
 })
 
 vim.g.root_spec = { ".git" }
+
+vim.opt.confirm = true
+vim.opt.smoothscroll = true

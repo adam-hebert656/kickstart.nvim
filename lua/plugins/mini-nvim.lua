@@ -112,7 +112,7 @@ return { -- Collection of various small independent plugins/modules
       items = {
         new_section("Find file",       "Telescope find_files",                                  "Telescope"),
         new_section("Recent files",    "Telescope oldfiles",                                    "Telescope"),
-        new_section("Find text",       "Telescope live_grep",                                   "Telescope"),
+        new_section("Grep text",       "Telescope live_grep",                                   "Telescope"),
         new_section("Projects",        "lua require'telescope'.extensions.projects.projects{}", "Telescope"),
         new_section("Config",          "lua MiniFiles.open('~/.config/nvim/')",                 "Config"),
         new_section("Lazy",            "Lazy",                                                  "Config"),
