@@ -16,6 +16,13 @@ return { -- Collection of various small independent plugins/modules
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
     require('mini.comment').setup()
+
+    -- mini.session Configuration
+    require('mini.sessions').setup({
+      force = { delete = true },
+    })
+
+    -- mini.pairs Configuration
     require('mini.pairs').setup(
       {
         modes = { insert = true, command = true, terminal = false },
@@ -30,6 +37,7 @@ return { -- Collection of various small independent plugins/modules
         markdown = true,
       }
     )
+
     -- mini.files Configuration
     require('mini.files').setup({
       windows = {
@@ -100,6 +108,7 @@ return { -- Collection of various small independent plugins/modules
                                      ▀▄░░░░░░░░░░░░░▄▀▀▀░▄▀ 
                                        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   
       ]],
+      footer = "",
       items = {
         new_section("Find file",       "Telescope find_files",                                  "Telescope"),
         new_section("Recent files",    "Telescope oldfiles",                                    "Telescope"),
@@ -109,9 +118,7 @@ return { -- Collection of various small independent plugins/modules
         new_section("Lazy",            "Lazy",                                                  "Config"),
         new_section("New file",        "ene | startinsert",                                     "Built-in"),
         new_section("Quit",            "qa",                                                    "Built-in"),
-
-        new_section("Restore Last Session", "lua require('persistence').load({ last = true })", "Session"),
-        new_section("Select Session", "lua require('persistence').select()",                    "Session")
+        starter.sections.sessions(3, true)
       },
       content_hooks = {
         starter.gen_hook.adding_bullet(),

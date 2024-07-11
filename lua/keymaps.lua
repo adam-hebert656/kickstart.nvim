@@ -89,6 +89,13 @@ vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Pr
 vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
-vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "[Q]uit All" })
 
 vim.keymap.set("n", "<leader>yh", '<cmd>lua require("telescope").extensions.yank_history.yank_history()<cr>', { desc = "[Y]ank [H]istory"})
+
+-- mini.sessions
+vim.keymap.set("n", "<leader>qr", "<cmd>lua require('mini.sessions').select('read')<cr>", { desc = "Read Sessions"})
+vim.keymap.set("n", "<leader>qw", "<cmd>lua require('mini.sessions').select('write')<cr>", { desc = "Write Sessions"})
+vim.keymap.set("n", "<leader>qd", "<cmd>lua require('mini.sessions').select('delete')<cr>", { desc = "Delete Sessions"})
+vim.keymap.set("n", "<leader>qn", "<cmd>lua require('mini.sessions').write(vim.fn.input('Session Name: ', ''))<cr>", { desc = "Write New Session" })
+vim.keymap.set("n", "<leader>ql", "<cmd>lua require('mini.sessions').read(require('mini.sessions').get_latest())<cr>", { desc = "Restore Last Session"})
+vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "[Q]uit All" })
