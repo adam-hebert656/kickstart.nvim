@@ -1,3 +1,5 @@
+local util = require('util.lualine')
+
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -23,7 +25,11 @@ return {
         sections = {
             lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
-            lualine_c = {'filename'},
+            lualine_c = {
+                util.root_dir(),
+                { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+                { util.pretty_path() }
+            },
             lualine_x = {'encoding', 'fileformat', 'filetype'},
             lualine_y = {'progress'},
             lualine_z = {'location'}
