@@ -5,10 +5,10 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[D]iagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[D]iagnostic [Q]uickfix list' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous Diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next Diagnostic message' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Diagnostic Error messages' })
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Diagnostic Quickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -104,8 +104,6 @@ vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Pr
 vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
-
-
 -- mini.sessions
 vim.keymap.set("n", "<leader>qr", "<cmd>lua require('mini.sessions').select('read')<cr>", { desc = "Read Sessions"})
 vim.keymap.set("n", "<leader>qw", "<cmd>lua require('mini.sessions').select('write')<cr>", { desc = "Write Sessions"})
@@ -113,15 +111,6 @@ vim.keymap.set("n", "<leader>qd", "<cmd>lua require('mini.sessions').select('del
 vim.keymap.set("n", "<leader>qn", "<cmd>lua require('mini.sessions').write(vim.fn.input('Session Name: ', ''))<cr>", { desc = "Write New Session" })
 vim.keymap.set("n", "<leader>ql", "<cmd>lua require('mini.sessions').read(require('mini.sessions').get_latest())<cr>", { desc = "Restore Last Session"})
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "[Q]uit All" })
-
--- windows
-vim.keymap.set("n", "<leader>ww", "<C-W>p", { desc = "Other Window", remap = true })
-vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-vim.keymap.set("n", "<leader>w-", "<C-W>s", { desc = "Split Window Below", remap = true })
-vim.keymap.set("n", "<leader>w|", "<C-W>v", { desc = "Split Window Right", remap = true })
-vim.keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
-vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
-vim.keymap.set("n", "<leader>wm", function() require('util.toggle').maximize() end, { desc = "Maximize Toggle" })
 
 -- tabs
 vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
@@ -139,14 +128,14 @@ vim.keymap.set('v', '<leader>rw', '<esc><cmd>lua require("spectre").open_visual(
 vim.keymap.set('n', '<leader>rp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search on current file" })
 
 -- MarkdownPreview
-vim.keymap.set('n', '<leader>tm', '<cmd>RenderMarkdownToggle<cr>', { desc = "[T]oggle [M]arkdown Preview" })
+vim.keymap.set('n', '<leader>tm', '<cmd>RenderMarkdownToggle<cr>', { desc = "Toggle Markdown Preview" })
 
 -- Git Blame
 vim.keymap.set("n", "<leader>gl", require('util.lazygit').blame_line, { desc = "Git Blame Line" })
 
 -- better indenting
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv", { desc = "Indent Left" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent Right" })
 
 -- commenting
 vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })

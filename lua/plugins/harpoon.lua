@@ -36,7 +36,7 @@ return {
       }):find()
     end
 
-    vim.keymap.set("n", "<leader>hm", function() toggle_telescope(harpoon:list()) end, { desc = "[H]arpoon [M]enu" })
+    vim.keymap.set("n", "<leader>hm", function() toggle_telescope(harpoon:list()) end, { desc = "Harpoon Menu" })
   end,
   keys = function()
     local keys = {
@@ -45,7 +45,7 @@ return {
         function()
           require("harpoon"):list():add()
         end,
-        desc = "[H]arpoon [F]ile",
+        desc = "Harpoon File",
       },
     }
 
@@ -55,7 +55,7 @@ return {
         function()
           require("harpoon"):list():select(i)
         end,
-        desc = "[H]arpoon to File [" .. i .. "]",
+        desc = "Harpoon to File [" .. i .. "]",
       })
     end
     return keys
