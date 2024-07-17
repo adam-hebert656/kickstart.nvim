@@ -16,7 +16,7 @@ return { -- Collection of various small independent plugins/modules
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup({
       mappings = {
-        add = 'gsa', -- Add surrounding in Normal and Visual modes
+        add = 'gsA', -- Add surrounding in Normal and Visual modes
         delete = 'gsd', -- Delete surrounding
         find = 'gsf', -- Find surrounding (to the right)
         find_left = 'gsF', -- Find surrounding (to the left)
@@ -122,9 +122,9 @@ return { -- Collection of various small independent plugins/modules
       items = {
         new_section("Find file",       "Telescope find_files",                                  "Telescope"),
         new_section("Recent files",    "Telescope oldfiles",                                    "Telescope"),
-        new_section("Grep text",       "Telescope live_grep",                                   "Telescope"),
-        new_section("Projects",        "lua require'telescope'.extensions.projects.projects{}", "Telescope"),
-        new_section("Config",          "lua MiniFiles.open('~/.config/nvim/')",                 "Config"),
+        new_section("Grep text",       "Telescope live_grep",                                                         "Telescope"),
+        new_section("Projects",        "lua require'telescope'.extensions.projects.projects{}",                         "Telescope"),
+        new_section("Config",          "lua require'telescope.builtin'.find_files({ cwd = vim.fn.stdpath 'config' })",  "Config"),
         new_section("Lazy",            "Lazy",                                                  "Config"),
         new_section("New file",        "ene | startinsert",                                     "Built-in"),
         new_section("Quit",            "qa",                                                    "Built-in"),
