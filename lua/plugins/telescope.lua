@@ -55,6 +55,9 @@ return {
       -- },
       -- pickers = {}
       defaults = {
+        path_display = {
+          "smart"
+        },
         mappings = {
           n = {
             ["q"] = require('telescope.actions').close,
