@@ -3,7 +3,6 @@ return {
   lazy = false,
   dependencies = { 
     "nvim-lua/plenary.nvim",
-    'nvim-telescope/telescope.nvim',
   },
   branch = "harpoon2",
   opts = {
@@ -18,25 +17,20 @@ return {
     local harpoon = require('harpoon')
     harpoon:setup(opts)
 
-    -- basic telescope configuration
-    local conf = require("telescope.config").values
-    local function toggle_telescope(harpoon_files)
+    -- fzf-lua configuration
+    local function toggle_fzf(harpoon_files)
       local file_paths = {}
       for _, item in ipairs(harpoon_files.items) do
         table.insert(file_paths, item.value)
       end
 
-      require("telescope.pickers").new({}, {
-        prompt_title = "Harpoon",
-        finder = require("telescope.finders").new_table({
-            results = file_paths,
-        }),
-        previewer = conf.file_previewer({}),
-        sorter = conf.generic_sorter({}),
-      }):find()
+      require('fzf-lua').fzf_exec(file_paths, {
+        actions = require('fzf-lua').defaults.actions.files,
+        previewer = "builtin",
+      })
     end
 
-    vim.keymap.set("n", "<leader>hm", function() toggle_telescope(harpoon:list()) end, { desc = "Harpoon Menu" })
+    vim.keymap.set("n", "<leader>hm", function() toggle_fzf(harpoon:list()) end, { desc = "Harpoon Menu" })
   end,
   keys = function()
     local keys = {
