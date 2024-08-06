@@ -5,14 +5,7 @@ return {
   config = function()
     -- calling `setup` is optional for customization
     local fzf = require('fzf-lua')
-    fzf.setup({
-      'telescope',
-      winopts = {
-        on_close = function()
-          vim.api.nvim_buf_clear_namespace(0, -1, 0, -1)
-        end,
-      }
-    })
+    fzf.setup({'telescope'})
 
     vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = 'Search Help' })
     vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = 'Search Keymaps' })
