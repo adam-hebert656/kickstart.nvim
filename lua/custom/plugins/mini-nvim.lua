@@ -112,9 +112,56 @@ return { -- Collection of various small independent plugins/modules
     -- mini.starter Configuration
     local starter = require('mini.starter')
 
-    local pad = string.rep(" ", 22)
+    local padding = string.rep(" ", 22)
+    local custom_sessions = function(n, recent)
+      n = n or 5
+      if recent == nil then recent = true end
+
+      return function()
+        if _G.MiniSessions == nil then
+          return { { name = [['mini.sessions' is not set up]], action = '', section = padding .. 'Sessions' } }
+        end
+
+        local items = {}
+        for session_name, session in pairs(_G.MiniSessions.detected) do
+          table.insert(items, {
+            _session = session,
+            name = ('%s%s'):format(session_name, session.type == 'local' and ' (local)' or ''),
+            action = ([[lua _G.MiniSessions.read('%s')]]):format(session_name),
+            section = padding .. 'Sessions',
+          })
+        end
+
+        if vim.tbl_count(items) == 0 then
+          return { { name = [[There are no detected sessions in 'mini.sessions']], action = '', section = padding .. 'Sessions' } }
+        end
+
+        local sort_fun
+        if recent then
+          sort_fun = function(a, b)
+            local a_time = a._session.type == 'local' and math.huge or a._session.modify_time
+            local b_time = b._session.type == 'local' and math.huge or b._session.modify_time
+            return a_time > b_time
+          end
+        else
+          sort_fun = function(a, b)
+            local a_name = a._session.type == 'local' and '' or a.name
+            local b_name = b._session.type == 'local' and '' or b.name
+            return a_name < b_name
+          end
+        end
+        table.sort(items, sort_fun)
+
+        -- Take only first `n` elements and remove helper fields
+        return vim.tbl_map(function(x)
+          x._session = nil
+          return x
+        end, vim.list_slice(items, 1, n))
+      end
+    end
+
     local new_section = function(name, action, section)
-      return { name = name, action = action, section = pad .. section }
+      return { name = name, action = action, section = padding .. section }
     end
 
     starter.setup({
@@ -133,14 +180,15 @@ return { -- Collection of various small independent plugins/modules
       ]],
       footer = "",
       items = {
-        new_section("Find file",       "FzfLua files",                                  "FzfLua"),
-        new_section("Recent files",    "FzfLua oldfiles",                                    "FzfLua"),
-        new_section("Grep text",       "FzfLua live_grep",                                                         "FzfLua"),
+        new_section("Find file",       "FzfLua files",                                                     "Find"),
+        new_section("Recent files",    "FzfLua oldfiles",                                                  "Find"),
+        new_section("Grep text",       "FzfLua live_grep",                                                 "Find"),
         new_section("Config",          "lua require'fzf-lua'.files({ cwd = vim.fn.stdpath 'config' })",  "Config"),
-        new_section("Lazy",            "Lazy",                                                  "Config"),
-        new_section("New file",        "ene | startinsert",                                     "Built-in"),
-        new_section("Quit",            "qa",                                                    "Built-in"),
-        starter.sections.sessions(3, true)
+        new_section("Lazy",            "Lazy",                                                           "Config"),
+        new_section("New file",        "ene | startinsert",                                            "Built-in"),
+        new_section("Quit",            "qa",                                                           "Built-in"),
+        new_section("Search Sessions", "lua require('mini.sessions').select()",                        "Sessions"),
+        custom_sessions(5, false)
       },
       content_hooks = {
         starter.gen_hook.adding_bullet(),
