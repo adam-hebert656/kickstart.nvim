@@ -10,6 +10,7 @@ return {
 
     wk.add({
       { "<leader>b", group = "Buffers", icon = {icon = "", color = "green"}},
+      { "<leader>c", group = "Conform", icon = {icon = "", color = "yellow"}},
       { "<leader>d", group = "Diagnostics", icon = {icon = "󱖫", color = "red"}},
       { "<leader>f", group = "Files", icon = "󰪶"},
       { "<leader>g", group = "Git", icon = {icon = "󰊢", color = "orange"}},

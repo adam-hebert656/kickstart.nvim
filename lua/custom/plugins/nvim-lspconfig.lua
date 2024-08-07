@@ -1,3 +1,5 @@
+local util = require('util.lspconfig')
+
 return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
@@ -183,6 +185,15 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
+      eslint = {
+        settings = {
+          -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+          workingDirectories = { mode = "auto" },
+        },
+      },
+      vtsls = {
+        root_dir = util.root_pattern('.git', 'tsconfig.json', 'jsconfig.json', 'package.json'),
+      }
     }
 
     -- Ensure the servers and tools above are installed

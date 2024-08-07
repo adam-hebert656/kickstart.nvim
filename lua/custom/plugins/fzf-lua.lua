@@ -16,8 +16,8 @@ return {
     vim.keymap.set('n', '<leader>sm', fzf.marks, { desc = 'Search Marks'})
     vim.keymap.set('n', '<leader>bs', fzf.buffers, { desc = 'Search Buffers'})
     vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = 'Search Resume' })
-    vim.keymap.set('n', '<leader>sw', fzf.grep_cword, { desc = 'Grep Word' })
-    vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = 'Live Grep in Project' })
+    vim.keymap.set('n', '<leader>sw', '<cmd>lua require("fzf-lua").grep_cword({cwd = require("util.root").get()})<cr>', { desc = 'Grep Word' })
+    vim.keymap.set('n', '<leader>sg', '<cmd>lua require("fzf-lua").live_grep({cwd = require("util.root").get()})<cr>', { desc = 'Live Grep in Project' })
     vim.keymap.set('n', '<leader>ss', fzf.lgrep_curbuf, { desc = 'Live Grep in Current Buffer' })
 
     vim.keymap.set('n', '<leader>fb', fzf.buffers, { desc = 'Find Existing Buffers' })
