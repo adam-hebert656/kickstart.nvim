@@ -28,7 +28,7 @@ return {
       -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        typscript = { 'eslint' }
+        typscript = { 'prettier' }
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
