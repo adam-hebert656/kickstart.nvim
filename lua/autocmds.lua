@@ -47,6 +47,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'oil',
     'PlenaryTestPopup',
+    "grug-far",
     'help',
     'lspinfo',
     'notify',

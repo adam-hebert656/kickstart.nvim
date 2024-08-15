@@ -126,15 +126,6 @@ vim.keymap.set("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 vim.keymap.set("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
--- spectre
-vim.keymap.set('n', '<leader>rt', '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
-vim.keymap.set('n', '<leader>rw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { desc = "Search current word" })
-vim.keymap.set('v', '<leader>rw', '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
-vim.keymap.set('n', '<leader>rp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search on current file" })
-
--- MarkdownPreview
-vim.keymap.set('n', '<leader>tm', '<cmd>RenderMarkdownToggle<cr>', { desc = "Toggle Markdown Preview" })
-
 -- Git Blame
 vim.keymap.set("n", "<leader>gl", require('util.lazygit').blame_line, { desc = "Git Blame Line" })
 
