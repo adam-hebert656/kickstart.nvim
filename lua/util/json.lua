@@ -11,7 +11,7 @@ local function encode(value, indent)
   elseif t == "number" or t == "boolean" then
     return tostring(value)
   elseif t == "table" then
-    local is_list = LazyVim.is_list(value)
+    local is_list = utils.is_list(value)
     local parts = {}
     local next_indent = indent .. "  "
 
@@ -44,17 +44,17 @@ function M.encode(value)
 end
 
 function M.save()
-  LazyVim.config.json.data.version = LazyVim.config.json.version
-  local f = io.open(LazyVim.config.json.path, "w")
+  utils.config.json.data.version = utils.config.json.version
+  local f = io.open(utils.config.json.path, "w")
   if f then
-    f:write(LazyVim.json.encode(LazyVim.config.json.data))
+    f:write(utils.json.encode(utils.config.json.data))
     f:close()
   end
 end
 
 function M.migrate()
-  LazyVim.info("Migrating `lazyvim.json` to version `" .. LazyVim.config.json.version .. "`")
-  local json = LazyVim.config.json
+  utils.info("Migrating `lazyvim.json` to version `" .. utils.config.json.version .. "`")
+  local json = utils.config.json
 
   -- v0
   if not json.data.version then

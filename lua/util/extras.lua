@@ -51,7 +51,7 @@ function M.wants(opts)
   end
   if opts.root then
     opts.root = type(opts.root) == "string" and { opts.root } or opts.root
-    return #LazyVim.root.detectors.pattern(M.buf, opts.root) > 0
+    return #utils.root.detectors.pattern(M.buf, opts.root) > 0
   end
   return false
 end
@@ -61,9 +61,9 @@ function M.get()
   M.state = M.state or LazyConfig.spec.modules
   local extras = {} ---@type LazyExtra[]
   for _, source in ipairs(M.sources) do
-    local root = LazyVim.find_root(source.module)
+    local root = utils.find_root(source.module)
     if root then
-      LazyVim.walk(root, function(path, name, type)
+      utils.walk(root, function(path, name, type)
         if (type == "file" or type == "link") and name:match("%.lua$") then
           name = path:sub(#root + 2, -5):gsub("/", ".")
           local ok, extra = pcall(M.get_extra, source, source.module .. "." .. name)
@@ -123,7 +123,7 @@ function M.get_extra(source, modname)
     imports = imports,
     desc = require(modname).desc,
     recommended = recommended,
-    managed = vim.tbl_contains(LazyVim.config.json.data.extras, modname) or not enabled,
+    managed = vim.tbl_contains(utils.config.json.data.extras, modname) or not enabled,
     plugins = plugins,
     optional = optional,
   }
@@ -161,26 +161,26 @@ function X:toggle()
   for _, extra in ipairs(self.extras) do
     if extra.row == pos[1] then
       if not extra.managed then
-        LazyVim.error(
+        utils.error(
           "Not managed by LazyExtras. Remove from your config to enable/disable here.",
           { title = "LazyExtras" }
         )
         return
       end
       extra.enabled = not extra.enabled
-      LazyVim.config.json.data.extras = vim.tbl_filter(function(name)
+      utils.config.json.data.extras = vim.tbl_filter(function(name)
         return name ~= extra.module
-      end, LazyVim.config.json.data.extras)
+      end, utils.config.json.data.extras)
       M.state = vim.tbl_filter(function(name)
         return name ~= extra.module
       end, M.state)
       if extra.enabled then
-        table.insert(LazyVim.config.json.data.extras, extra.module)
+        table.insert(utils.config.json.data.extras, extra.module)
         M.state[#M.state + 1] = extra.module
       end
-      table.sort(LazyVim.config.json.data.extras)
-      LazyVim.json.save()
-      LazyVim.info(
+      table.sort(utils.config.json.data.extras)
+      utils.json.save()
+      utils.info(
         "`"
           .. extra.name
           .. "`"
@@ -263,7 +263,7 @@ function X:extra(extra)
       self:diagnostic({
         message = "Required by " .. table.concat(pp, ", "),
       })
-    elseif vim.tbl_contains(LazyVim.plugin.core_imports, extra.module) then
+    elseif vim.tbl_contains(utils.plugin.core_imports, extra.module) then
       self:diagnostic({
         message = "This extra is included by default",
       })

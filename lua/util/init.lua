@@ -1,7 +1,6 @@
 local LazyUtil = require("lazy.core.util")
 
 ---@class lazyvim.util: LazyUtilCore
----@field config LazyVimConfig
 ---@field ui lazyvim.util.ui
 ---@field lsp lazyvim.util.lsp
 ---@field root lazyvim.util.root
@@ -49,7 +48,7 @@ setmetatable(M, {
       return t[mod][key]
     end
     ---@diagnostic disable-next-line: no-unknown
-    t[k] = require("lazyvim.util." .. k)
+    t[k] = require("adamutil." .. k)
     return t[k]
   end,
 })

@@ -24,7 +24,7 @@ function M.register(formatter)
 end
 
 function M.formatexpr()
-  if LazyVim.has("conform.nvim") then
+  if utils.has("conform.nvim") then
     return require("conform").formatexpr()
   end
   return vim.lsp.formatexpr({ timeout_ms = 3000 })
@@ -74,7 +74,7 @@ function M.info(buf)
   if not have then
     lines[#lines + 1] = "\n***No formatters available for this buffer.***"
   end
-  LazyVim[enabled and "info" or "warn"](
+  utils[enabled and "info" or "warn"](
     table.concat(lines, "\n"),
     { title = "LazyFormat (" .. (enabled and "enabled" or "disabled") .. ")" }
   )
@@ -118,14 +118,14 @@ function M.format(opts)
   for _, formatter in ipairs(M.resolve(buf)) do
     if formatter.active then
       done = true
-      LazyVim.try(function()
+      utils.try(function()
         return formatter.format(buf)
       end, { msg = "Formatter `" .. formatter.name .. "` failed" })
     end
   end
 
   if not done and opts and opts.force then
-    LazyVim.warn("No formatter available", { title = "LazyVim" })
+    utils.warn("No formatter available", { title = "Neovim" })
   end
 end
 
@@ -134,7 +134,7 @@ function M.health()
   local has_plugin = Config.spec.plugins["none-ls.nvim"]
   local has_extra = vim.tbl_contains(Config.spec.modules, "lazyvim.plugins.extras.lsp.none-ls")
   if has_plugin and not has_extra then
-    LazyVim.warn({
+    utils.warn({
       "`conform.nvim` and `nvim-lint` are now the default formatters and linters in LazyVim.",
       "",
       "You can use those plugins together with `none-ls.nvim`,",

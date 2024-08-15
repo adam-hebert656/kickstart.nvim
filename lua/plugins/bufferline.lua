@@ -19,10 +19,10 @@ return {
   opts = {
     options = {
       close_command = function(n)
-        require('adamutils').ui.bufremove(n)
+        require('util.ui').bufremove(n)
       end,
       right_mouse_command = function(n)
-        require('adamutils').ui.bufremove(n)
+        require('util.ui').bufremove(n)
       end,
       get_element_icon = function(element)
         local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })

@@ -56,7 +56,7 @@ return { -- Collection of various small independent plugins/modules
         width_preview = 50,
       },
       mappings = {
-        close       = '<Esc>',
+        close       = 'q',
         go_in       = 'l',
         go_in_plus  = 'L',
         go_out      = 'h',

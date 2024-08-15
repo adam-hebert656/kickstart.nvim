@@ -33,7 +33,7 @@ function M.register(picker)
   end
 
   if M.picker and M.picker.name ~= picker.name then
-    LazyVim.warn(
+    utils.warn(
       "`LazyVim.pick`: picker already set to `" .. M.picker.name .. "`,\nignoring new picker `" .. picker.name .. "`"
     )
     return false
@@ -45,7 +45,7 @@ end
 function M.want()
   vim.g.lazyvim_picker = vim.g.lazyvim_picker or "auto"
   if vim.g.lazyvim_picker == "auto" then
-    return LazyVim.has_extra("editor.fzf") and "fzf" or "telescope"
+    return utils.has_extra("editor.fzf") and "fzf" or "telescope"
   end
   return vim.g.lazyvim_picker
 end
@@ -54,7 +54,7 @@ end
 ---@param opts? lazyvim.util.pick.Opts
 function M.open(command, opts)
   if not M.picker then
-    return LazyVim.error("LazyVim.pick: picker not set")
+    return utils.error("LazyVim.pick: picker not set")
   end
 
   command = command or "auto"
@@ -63,12 +63,12 @@ function M.open(command, opts)
   opts = vim.deepcopy(opts)
 
   if type(opts.cwd) == "boolean" then
-    LazyVim.warn("LazyVim.pick: opts.cwd should be a string or nil")
+    utils.warn("LazyVim.pick: opts.cwd should be a string or nil")
     opts.cwd = nil
   end
 
   if not opts.cwd and opts.root ~= false then
-    opts.cwd = LazyVim.root({ buf = opts.buf })
+    opts.cwd = utils.root({ buf = opts.buf })
   end
 
   local cwd = opts.cwd or vim.uv.cwd()
@@ -95,7 +95,7 @@ end
 function M.wrap(command, opts)
   opts = opts or {}
   return function()
-    LazyVim.pick.open(command, vim.deepcopy(opts))
+    utils.pick.open(command, vim.deepcopy(opts))
   end
 end
 

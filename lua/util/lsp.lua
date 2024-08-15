@@ -120,8 +120,8 @@ end
 
 function M.rename_file()
   local buf = vim.api.nvim_get_current_buf()
-  local old = assert(LazyVim.root.realpath(vim.api.nvim_buf_get_name(buf)))
-  local root = assert(LazyVim.root.realpath(LazyVim.root.get({ normalize = true })))
+  local old = assert(utils.root.realpath(vim.api.nvim_buf_get_name(buf)))
+  local root = assert(utils.root.realpath(utils.root.get({ normalize = true })))
   assert(old:find(root, 1, true) == 1, "File not in project root")
 
   local extra = old:sub(#root + 2)
@@ -134,7 +134,7 @@ function M.rename_file()
     if not new or new == "" or new == extra then
       return
     end
-    new = LazyVim.norm(root .. "/" .. new)
+    new = utils.norm(root .. "/" .. new)
     vim.fn.mkdir(vim.fs.dirname(new), "p")
     M.on_rename(old, new, function()
       vim.fn.rename(old, new)
@@ -211,10 +211,10 @@ function M.formatter(opts)
     primary = true,
     priority = 1,
     format = function(buf)
-      M.format(LazyVim.merge({}, filter, { bufnr = buf }))
+      M.format(utils.merge({}, filter, { bufnr = buf }))
     end,
     sources = function(buf)
-      local clients = M.get_clients(LazyVim.merge({}, filter, { bufnr = buf }))
+      local clients = M.get_clients(utils.merge({}, filter, { bufnr = buf }))
       ---@param client vim.lsp.Client
       local ret = vim.tbl_filter(function(client)
         return client.supports_method("textDocument/formatting")
@@ -226,7 +226,7 @@ function M.formatter(opts)
       end, ret)
     end,
   }
-  return LazyVim.merge(ret, opts) --[[@as LazyFormatter]]
+  return utils.merge(ret, opts) --[[@as LazyFormatter]]
 end
 
 ---@alias lsp.Client.format {timeout_ms?: number, format_options?: table} | lsp.Client.filter
@@ -237,8 +237,8 @@ function M.format(opts)
     "force",
     {},
     opts or {},
-    LazyVim.opts("nvim-lspconfig").format or {},
-    LazyVim.opts("conform.nvim").format or {}
+    utils.opts("nvim-lspconfig").format or {},
+    utils.opts("conform.nvim").format or {}
   )
   local ok, conform = pcall(require, "conform")
   -- use conform for formatting with LSP when available,
@@ -284,7 +284,7 @@ function M.words.setup(opts)
         if not ({ M.words.get() })[2] then
           if ev.event:find("CursorMoved") then
             vim.lsp.buf.clear_references()
-          elseif not LazyVim.cmp.visible() then
+          elseif not utils.cmp.visible() then
             vim.lsp.buf.document_highlight()
           end
         end

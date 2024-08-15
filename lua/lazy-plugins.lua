@@ -1,6 +1,6 @@
 require('lazy').setup({
   'tpope/vim-sleuth',
-  { import = 'custom.plugins' },
+  { import = 'plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
