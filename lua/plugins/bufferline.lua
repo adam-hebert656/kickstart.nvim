@@ -31,7 +31,14 @@ return {
       numbers = function(number_opts)
         local arr_statusline = require('arrow.statusline')
         return arr_statusline.text_for_statusline_with_icons(number_opts.id)
-      end
+      end,
+      diagnostics = "nvim_lsp",
+      diagnostics_indicator = function(_, _, diag)
+        local icons = require('util.icons').icons.diagnostics
+        local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+          .. (diag.warning and icons.Warn .. diag.warning or "")
+        return vim.trim(ret)
+      end,
     },
   },
 }
