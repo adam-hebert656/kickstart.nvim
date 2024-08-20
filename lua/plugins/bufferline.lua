@@ -28,6 +28,10 @@ return {
         local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
         return icon, hl
       end,
+      numbers = function(number_opts)
+        local arr_statusline = require('arrow.statusline')
+        return arr_statusline.text_for_statusline_with_icons(number_opts.id)
+      end
     },
   },
 }

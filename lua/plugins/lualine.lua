@@ -1,4 +1,12 @@
 local util = require('util.lualine')
+local statusline = require('arrow.statusline')
+
+local function arrow_ind()
+    if statusline.is_on_arrow_file() then
+        return statusline.text_for_statusline_with_icons()
+    end
+    return ""
+end
 
 return {
     'nvim-lualine/lualine.nvim',
@@ -30,7 +38,7 @@ return {
                 { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
                 { util.pretty_path() }
             },
-            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_x = {arrow_ind, 'filetype'},
             lualine_y = {'progress'},
             lualine_z = {'location'}
         },
