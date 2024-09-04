@@ -1,3 +1,45 @@
+local icons = {
+  Array         = " ",
+  Boolean       = "󰨙 ",
+  Class         = " ",
+  Codeium       = "󰘦 ",
+  Color         = " ",
+  Control       = " ",
+  Collapsed     = " ",
+  Constant      = "󰏿 ",
+  Constructor   = " ",
+  Copilot       = " ",
+  Enum          = " ",
+  EnumMember    = " ",
+  Event         = " ",
+  Field         = " ",
+  File          = " ",
+  Folder        = " ",
+  Function      = "󰊕 ",
+  Interface     = " ",
+  Key           = " ",
+  Keyword       = " ",
+  Method        = "󰊕 ",
+  Module        = " ",
+  Namespace     = "󰦮 ",
+  Null          = " ",
+  Number        = "󰎠 ",
+  Object        = " ",
+  Operator      = " ",
+  Package       = " ",
+  Property      = " ",
+  Reference     = " ",
+  Snippet       = " ",
+  String        = " ",
+  Struct        = "󰆼 ",
+  TabNine       = "󰏚 ",
+  Text          = " ",
+  TypeParameter = " ",
+  Unit          = " ",
+  Value         = " ",
+  Variable      = "󰀫 ",
+}
+
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
@@ -33,6 +75,12 @@ return { -- Autocompletion
     --  into multiple repos for maintenance purposes.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
+    {
+      "Exafunction/codeium.nvim",
+      cmd = "Codeium",
+      build = ":Codeium Auth",
+      opts = {},
+    },
   },
   config = function()
     -- See `:help cmp`
@@ -42,7 +90,7 @@ return { -- Autocompletion
 
     cmp.setup {
       performance = {
-        max_view_entries = 10
+        max_view_entries = 20
       },
       preselect = cmp.PreselectMode.None,
       snippet = {
@@ -63,6 +111,23 @@ return { -- Autocompletion
               vim_item.kind_hl_group = hl_group
               return vim_item
             end
+          else
+            if icons[vim_item.kind] then
+              vim_item.kind = icons[vim_item.kind] .. vim_item.kind
+            end
+
+            local widths = {
+              abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
+              menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
+            }
+
+            for key, width in pairs(widths) do
+              if vim_item[key] and vim.fn.strdisplaywidth(vim_item[key]) > width then
+                vim_item[key] = vim.fn.strcharpart(vim_item[key], 0, width - 1) .. "…"
+              end
+            end
+
+            return vim_item
           end
           return require('lspkind').cmp_format({ with_text = true })(entry, vim_item)
         end
@@ -142,9 +207,13 @@ return { -- Autocompletion
           -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
           group_index = 0,
         },
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
+        { name = 'nvim_lsp', priority = 1000 },
+        { name = 'luasnip', priority = 900 },
         { name = 'path' },
+        {
+          name = "codeium",
+          priority = 800
+        },
       },
     }
   end,

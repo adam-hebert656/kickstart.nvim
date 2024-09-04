@@ -10,14 +10,14 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next Diagnos
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Diagnostic Error messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Diagnostic Quickfix list' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
+-- -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+-- -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+-- -- is not what someone will guess without a bit more experience.
+-- --
+-- -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+-- -- or just use <C-\><C-n> to exit terminal mode
+-- vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 --
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -59,10 +59,10 @@ vim.keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', ex
 vim.keymap.set({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
 -- Resize window using <ctrl> arrow keys
-vim.keymap.set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
-vim.keymap.set('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
-vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
-vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
+vim.keymap.set('n', '<A-Up>', '<cmd>horizontal resize +2<cr>', { desc = 'Increase Window Height' })
+vim.keymap.set('n', '<A-Down>', '<cmd>horizontal resize -2<cr>', { desc = 'Decrease Window Height' })
+vim.keymap.set('n', '<A-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
+vim.keymap.set('n', '<A-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 
 -- Move Lines
 vim.keymap.set('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move Down' })
@@ -136,3 +136,16 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent Right" })
 -- commenting
 vim.keymap.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 vim.keymap.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
+
+-- toggleterm / Terminal mappings
+vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Open Terminal in Horizontal Split" })
+vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm size=50 direction=vertical<cr>", { desc = "Open Terminal in Vertical Split" })
+vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Open Terminal in Floating Window" })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+vim.keymap.set("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to Left Window" })
+vim.keymap.set("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window" })
+vim.keymap.set("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
+vim.keymap.set("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
+vim.keymap.set("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+vim.keymap.set("t", "<C-e>", "<cmd>close<cr>", { desc = "which_key_ignore" })

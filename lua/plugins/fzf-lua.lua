@@ -7,6 +7,9 @@ return {
     local fzf = require('fzf-lua')
     fzf.setup({
       'telescope',
+      oldfiles = {
+        include_current_session = true
+      }
     })
 
     vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = 'Search Help' })

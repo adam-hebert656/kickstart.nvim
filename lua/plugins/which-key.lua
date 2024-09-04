@@ -20,7 +20,7 @@ return {
       { "<leader>q", group = "Quit", icon = {icon = "󰈆", color = "red"} },
       { "<leader>r", group = "Find & Replace", icon = {icon = "󰛔", color = "green"}},
       { "<leader>s", group = "Search", icon = {icon = "󰍉", color = "purple"}},
-      { "<leader>t", group = "Toggle", icon = {icon = ""}},
+      { "<leader>t", group = "Terminal", icon = {icon = ""}},
       { "<leader>w", group = "Windows", icon = {icon = ""}},
       { "<leader>y", group = "Yanky", icon = {icon = "", color = "orange"}},
       { "<leader>yh", '<cmd>lua require("telescope").extensions.yank_history.yank_history()<cr>', desc = "Yanky History" },
