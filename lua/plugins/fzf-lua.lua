@@ -7,8 +7,24 @@ return {
     local fzf = require('fzf-lua')
     fzf.setup({
       'telescope',
+      winopts = {
+        height = 0.90,
+        width = 0.90,
+        row = 0.60,
+        preview = {
+          layout = 'vertical',
+          vertical = 'up:70%',
+        }
+      },
       oldfiles = {
-        include_current_session = true
+        include_current_session = true,
+        formatter = 'path.filename_first'
+      },
+      files = {
+        formatter = 'path.filename_first'
+      },
+      grep = {
+        formatter = 'path.filename_first'
       }
     })
 

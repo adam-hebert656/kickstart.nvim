@@ -145,19 +145,7 @@ return { -- Autocompletion
 
         ['<C-e>'] = cmp.mapping.abort(),
 
-        ['<CR>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                if luasnip.expandable() then
-                    luasnip.expand()
-                else
-                    cmp.confirm({
-                        select = true,
-                    })
-                end
-            else
-                fallback()
-            end
-        end),
+        ['<CR>'] = cmp.mapping.confirm({select = true}),
 
         ["<Tab>"] = cmp.mapping(function(fallback)
           if luasnip.locally_jumpable(1) then
@@ -216,5 +204,7 @@ return { -- Autocompletion
         },
       },
     }
+
+    cmp.setup.filetype('minifiles', {enabled = false})
   end,
 }

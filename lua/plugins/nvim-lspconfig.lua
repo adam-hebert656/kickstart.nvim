@@ -90,7 +90,7 @@ return { -- LSP Configuration & Plugins
 
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
-        map('<leader>la', vim.lsp.buf.code_action, 'Code Action')
+        map('<leader>la', fzf.lsp_code_actions, 'Code Action')
 
         -- Opens a popup that displays documentation about the word under your cursor
         --  See `:help K` for why this keymap.
