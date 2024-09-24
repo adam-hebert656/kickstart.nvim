@@ -4,6 +4,12 @@ return {
   event = 'VeryLazy',
   opts = {
     -- add any options here
+    popupmenu = {
+      enabled = true
+    },
+    presets = {
+      command_palette = true,
+    }
   },
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries

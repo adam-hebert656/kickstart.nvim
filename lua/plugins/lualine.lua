@@ -38,7 +38,15 @@ return {
                 { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
                 { util.pretty_path() }
             },
-            lualine_x = {arrow_ind, 'filetype'},
+            lualine_x = {
+                arrow_ind,
+                'filetype',
+                {
+                    require("noice").api.statusline.mode.get,
+                    cond = require("noice").api.statusline.mode.has,
+                    color = { fg = "#ff9e64" },
+                }
+            },
             lualine_y = {'progress'},
             lualine_z = {'location'}
         },
