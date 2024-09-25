@@ -9,12 +9,14 @@ return {
     wk.setup(opts)
 
     wk.add({
+      { "<leader>a", group = "Arrow", icon = "󱡁" },
+      { "<leader>af", group = "Arrow File Bookmarks", icon = "󱡁" },
+      { "<leader>ab", group = "Arrow Buffer Bookmarks", icon = "󱡁" },
       { "<leader>b", group = "Buffers", icon = {icon = "", color = "green"}},
       { "<leader>c", group = "Conform", icon = {icon = "", color = "yellow"}},
       { "<leader>d", group = "Diagnostics", icon = {icon = "󱖫", color = "red"}},
       { "<leader>f", group = "Files", icon = "󰪶"},
       { "<leader>g", group = "Git", icon = {icon = "󰊢", color = "orange"}},
-      { "<leader>h", group = "Harpoon", icon = "󰸕" },
       { "<leader>l", group = "LSP", icon = {icon = "󱃖", color = "yellow"}},
       { "<leader>p", group = "Preview", icon = {icon = "", color = "purple"}},
       { "<leader>q", group = "Quit", icon = {icon = "󰈆", color = "red"} },
