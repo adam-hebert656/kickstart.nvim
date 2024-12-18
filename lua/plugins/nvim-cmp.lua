@@ -198,10 +198,6 @@ return { -- Autocompletion
         { name = 'nvim_lsp', priority = 1000 },
         { name = 'luasnip', priority = 900 },
         { name = 'path' },
-        {
-          name = "codeium",
-          priority = 800
-        },
       },
     }
 

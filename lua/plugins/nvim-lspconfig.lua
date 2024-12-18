@@ -191,9 +191,9 @@ return { -- LSP Configuration & Plugins
           workingDirectories = { mode = "auto" },
         },
       },
-      -- tsserver = {
-      --   root_dir = util.root_pattern('.git', 'tsconfig.json', 'jsconfig.json', 'package.json'),
-      -- }
+      vtsls = {
+        root_dir = util.root_pattern('.git', 'tsconfig.json', 'jsconfig.json', 'package.json'),
+      }
     }
 
     -- Ensure the servers and tools above are installed
