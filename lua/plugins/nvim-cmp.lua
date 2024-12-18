@@ -75,12 +75,6 @@ return { -- Autocompletion
     --  into multiple repos for maintenance purposes.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
-    {
-      "Exafunction/codeium.nvim",
-      cmd = "Codeium",
-      build = ":Codeium Auth",
-      opts = {},
-    },
   },
   config = function()
     -- See `:help cmp`
