@@ -25,7 +25,7 @@ return { -- Collection of various small independent plugins/modules
         update_n_lines = 'gsn', -- Update `n_lines`
       }
     })
-    require('mini.comment').setup()
+    -- require('mini.comment').setup()
 
     -- mini.session Configuration
     require('mini.sessions').setup({
