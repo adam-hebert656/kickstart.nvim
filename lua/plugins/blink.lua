@@ -87,7 +87,7 @@ return {
         auto_show_delay_ms = 200,
       },
       list = {
-        selection = 'manual',
+        selection = { preselect = false, auto_insert = false },
       }
     },
 
