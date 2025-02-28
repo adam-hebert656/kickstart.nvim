@@ -109,7 +109,7 @@ return { -- Collection of various small independent plugins/modules
     })
 
 
-    -- mini.starter Configuration
+    --mini.starter Configuration
     local starter = require('mini.starter')
 
     local padding = string.rep(" ", 22)
@@ -180,10 +180,9 @@ return { -- Collection of various small independent plugins/modules
       ]],
       footer = "",
       items = {
-        new_section("Find file",       "FzfLua files",                                                     "Find"),
-        new_section("Recent files",    "FzfLua oldfiles",                                                  "Find"),
-        new_section("Grep text",       "FzfLua live_grep",                                                 "Find"),
-        new_section("Config",          "lua require'fzf-lua'.files({ cwd = vim.fn.stdpath 'config' })",  "Config"),
+        new_section("Find file",       "lua Snacks.picker.files()",                                        "Find"),
+        new_section("Recent files",    "lua Snacks.picker.recent()",                                       "Find"),
+        new_section("Grep text",       "lua Snacks.picker.grep()",                                         "Find"),
         new_section("Lazy",            "Lazy",                                                           "Config"),
         new_section("New file",        "ene | startinsert",                                            "Built-in"),
         new_section("Quit",            "qa",                                                           "Built-in"),
@@ -198,16 +197,7 @@ return { -- Collection of various small independent plugins/modules
 
     require('mini.cursorword').setup()
 
-    -- mini.indentscope Configuration
-    require('mini.indentscope').setup({
-      symbol = "│"
-    })
-
-    require('mini.diff').setup({
-      view = {
-        style = "sign"
-      }
-    })
+    require('mini.tabline').setup()
 
     -- ... and there is more!
     --  Check out: https://github.com/echasnovski/mini.nvim

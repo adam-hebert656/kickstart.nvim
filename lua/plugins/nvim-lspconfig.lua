@@ -153,39 +153,9 @@ return {
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
-        local fzf = require('fzf-lua')
-        -- Jump to the definition of the word under your cursor.
-        --  This is where a variable was first declared, or where a function is defined, etc.
-        --  To jump back, press <C-t>.
-        map('gd', fzf.lsp_definitions, 'Goto Definition')
-
-        -- Find references for the word under your cursor.
-        map('gr', fzf.lsp_references, 'Goto References')
-
-        -- Jump to the implementation of the word under your cursor.
-        --  Useful when your language has ways of declaring types without an actual implementation.
-        map('gI', fzf.lsp_implementations, 'Goto Implementation')
-
-        -- Jump to the type of the word under your cursor.
-        --  Useful when you're not sure what type a variable is and you want to see
-        --  the definition of its *type*, not where it was *defined*.
-        map('<leader>ld', fzf.lsp_typedefs, 'Type Definition')
-
-        -- Fuzzy find all the symbols in your current document.
-        --  Symbols are things like variables, functions, types, etc.
-        map('<leader>ls', fzf.lsp_document_symbols, 'Document Symbols')
-
-        -- Fuzzy find all the symbols in your current workspace.
-        --  Similar to document symbols, except searches over your entire project.
-        map('<leader>ls', fzf.lsp_workspace_symbols, 'Workspace Symbols')
-
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
         map('<leader>lr', vim.lsp.buf.rename, 'Rename')
-
-        -- Execute a code action, usually your cursor needs to be on top of an error
-        -- or a suggestion from your LSP for this to activate.
-        map('<leader>la', fzf.lsp_code_actions, 'Code Action')
 
         -- Opens a popup that displays documentation about the word under your cursor
         --  See `:help K` for why this keymap.
