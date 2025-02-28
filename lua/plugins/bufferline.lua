@@ -19,10 +19,10 @@ return {
   opts = {
     options = {
       close_command = function(n)
-        require('util.ui').bufremove(n)
+        Snacks.bufdelete(n)
       end,
       right_mouse_command = function(n)
-        require('util.ui').bufremove(n)
+        Snacks.bufdelete(n)
       end,
       get_element_icon = function(element)
         local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
@@ -32,13 +32,6 @@ return {
         local arr_statusline = require('arrow.statusline')
         return arr_statusline.text_for_statusline_with_icons(number_opts.id)
       end,
-      -- diagnostics = "nvim_lsp",
-      -- diagnostics_indicator = function(_, _, diag)
-      --   local icons = require('util.icons').icons.diagnostics
-      --   local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-      --     .. (diag.warning and icons.Warn .. diag.warning or "")
-      --   return vim.trim(ret)
-      -- end,
     },
   },
 }

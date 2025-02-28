@@ -203,6 +203,12 @@ return { -- Collection of various small independent plugins/modules
       symbol = "│"
     })
 
+    require('mini.diff').setup({
+      view = {
+        style = "sign"
+      }
+    })
+
     -- ... and there is more!
     --  Check out: https://github.com/echasnovski/mini.nvim
   end,

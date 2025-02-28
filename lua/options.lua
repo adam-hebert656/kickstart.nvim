@@ -73,7 +73,7 @@ vim.opt.scrolloff = 10
 vim.opt.termguicolors = true
 
 vim.diagnostic.config({
-  virtual_text = false,
+  virtual_text = true,
 })
 
 vim.g.root_spec = { ".git" }

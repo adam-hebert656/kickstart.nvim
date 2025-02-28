@@ -2,7 +2,7 @@ return {
   'folke/which-key.nvim',
   event = 'VimEnter', -- Sets the loading event to 'VimEnter'
   opts = {
-    preset = "modern"
+    preset = "helix"
   },
   config = function(_, opts)
     local wk = require("which-key")
@@ -26,8 +26,6 @@ return {
       { "<leader>t", group = "Terminal", icon = {icon = ""}},
       { "<leader>w", group = "Windows", icon = {icon = ""}},
       { "<leader>y", group = "Yanky", icon = {icon = "", color = "orange"}},
-      { "<leader>yh", '<cmd>lua require("telescope").extensions.yank_history.yank_history()<cr>', desc = "Yanky History" },
-      { "<leader>yc", '<cmd>YankyClearHistory<cr>', desc = "Yanky: Clear History"},
       { "<leader><tab>", group = "Tabs"}
     })
   end
