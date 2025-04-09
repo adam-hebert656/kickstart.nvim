@@ -6,6 +6,16 @@ return {
   },
   config = function(_, opts)
     local wk = require("which-key")
+
+    local quick_chat = function()
+      local input = vim.fn.input("Quick Chat: ")
+      if input ~= "" then
+        require("CopilotChat").ask(input, {
+          selection = require("CopilotChat.select").buffer
+        })
+      end
+    end
+
     wk.setup(opts)
 
     wk.add({
@@ -13,7 +23,7 @@ return {
       { "<leader>af", group = "Arrow File Bookmarks", icon = "󱡁" },
       { "<leader>ab", group = "Arrow Buffer Bookmarks", icon = "󱡁" },
       { "<leader>b", group = "Buffers", icon = {icon = "", color = "green"}},
-      { "<leader>c", group = "CodeCompanion", icon = {icon = "", color = "blue"}},
+      { "<leader>c", group = "CopilotChat", icon = {icon = "", color = "blue"}},
       { "<leader>d", group = "Diagnostics", icon = {icon = "󱖫", color = "red"}},
       { "<leader>f", group = "Files", icon = "󰪶"},
       { "<leader>g", group = "Git", icon = {icon = "󰊢", color = "blue"}},
@@ -26,7 +36,13 @@ return {
       { "<leader>t", group = "Terminal", icon = {icon = ""}},
       { "<leader>w", group = "Windows", icon = {icon = ""}},
       { "<leader>y", group = "Yanky", icon = {icon = "", color = "orange"}},
-      { "<leader><tab>", group = "Tabs"}
+      { "<leader><tab>", group = "Tabs"},
+
+      --- CopilotChat
+      { '<leader>cc', '<Cmd>CopilotChatToggle<CR>', desc = 'Toggle CopilotChat', icon = {icon = "", color = "blue"}},
+      { '<leader>cr', '<Cmd>CopilotChatReset<CR>', desc = 'Reset CopilotChat', icon = {icon = "", color = "blue"}},
+      { '<leader>cp', '<Cmd>CopilotChatPrompt<CR>', desc = 'CopilotChat Prompts', icon = {icon = "", color = "blue"}},
+      { '<leader>cq', quick_chat, desc = 'Copilot Quick Chat', icon = {icon = "", color = "blue"}},
     })
   end
  }
