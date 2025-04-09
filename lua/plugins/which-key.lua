@@ -13,7 +13,7 @@ return {
       { "<leader>af", group = "Arrow File Bookmarks", icon = "󱡁" },
       { "<leader>ab", group = "Arrow Buffer Bookmarks", icon = "󱡁" },
       { "<leader>b", group = "Buffers", icon = {icon = "", color = "green"}},
-      { "<leader>c", group = "Conform", icon = {icon = "", color = "yellow"}},
+      { "<leader>c", group = "CodeCompanion", icon = {icon = "", color = "blue"}},
       { "<leader>d", group = "Diagnostics", icon = {icon = "󱖫", color = "red"}},
       { "<leader>f", group = "Files", icon = "󰪶"},
       { "<leader>g", group = "Git", icon = {icon = "󰊢", color = "blue"}},
